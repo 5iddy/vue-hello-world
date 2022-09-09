@@ -36,6 +36,7 @@ jobs:
             rm -rf vue-hello-world
             git clone https://github.com/5iddy/vue-hello-world.git
             cd vue-hello-world
+            npm install
             npm run build
             sudo install -dm0755 /var/www/vue-hello-world/html/
             sudo install -dm0755 /var/www/vue-hello-world/html/assets
@@ -43,6 +44,8 @@ jobs:
             sudo install -Dm0755 ./dist/assets/* /var/www/vue-hello-world/html/assets
             sudo install -Dm0755 ./vue-hello-world.conf /etc/nginx/sites-available/
             sudo ufw allow 'Nginx HTTP'
+            sudo ufw allow ssh
+            sudo ufw enable
             sudo ln -s /etc/nginx/sites-available/vue-hello-world.conf /etc/nginx/sites-enabled/
             sudo systemctl enable nginx
-            sudo systemctl start nginx
+            sudo systemctl restart nginx
