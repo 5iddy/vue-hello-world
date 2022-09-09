@@ -34,6 +34,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          ls
+          cwd
           
       - name: executing remote ssh commands using key
         uses: appleboy/ssh-action@master
@@ -43,4 +45,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            sudo apt install neofetch -y && neofetch
+            ls
+            cwd
