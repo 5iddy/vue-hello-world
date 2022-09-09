@@ -28,14 +28,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          ls
-          pwd
           
       - name: executing remote ssh commands using key
         uses: appleboy/ssh-action@master
@@ -45,5 +37,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            sudo apt install nodejs npm
+            git clone git@github.com:5iddy/vue-hello-world.git
+            cd vue-hello-world
             ls
-            pwd
