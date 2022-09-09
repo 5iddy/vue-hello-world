@@ -24,11 +24,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-          
       - name: executing remote ssh commands using key
         uses: appleboy/ssh-action@master
         with:
@@ -37,7 +32,16 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            sudo apt install nodejs npm -y
+            sudo apt install nodejs npm nginx -y
             git clone https://github.com/5iddy/vue-hello-world.git
             cd vue-hello-world
-            ls
+            npm run build
+            sudo install -dm0755 /var/www/vue-hello-world/html/
+            sudo install -dm0755 /var/www/vue-hello-world/html/assets
+            sudo install -Dm0755 ./dist/* /var/www/vue-hello-world/html/
+            sudo install -Dm0755 ./dist/assets/* /var/www/vue-hello-world/html/assets
+            sudo install -Dm0755 ./vue-hello-world.conf /etc/nginx/sites-available/
+            sudo ufw allow 'Nginx HTTP'
+            sudo ln -s /etc/nginx/sites-available/vue-hello-world.conf /etc/nginx/sites-enabled/
+            sudo systemctl enable nginx
+            sudo systemctl start nginx
