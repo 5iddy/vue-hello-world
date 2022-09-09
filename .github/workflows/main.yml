@@ -32,7 +32,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            sudo apt install nodejs npm nginx -y
+            sudo apt install nginx -y
+            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+            sudo apt-get update && sudo apt-get install npm nodejs -y
             rm -rf vue-hello-world
             git clone https://github.com/5iddy/vue-hello-world.git
             cd vue-hello-world
