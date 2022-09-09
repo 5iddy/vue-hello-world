@@ -38,10 +38,12 @@ jobs:
             cd vue-hello-world
             npm install
             npm run build
+            sudo rm -rf /var/www/vue-hello-world/
             sudo install -dm0755 /var/www/vue-hello-world/html/
             sudo install -dm0755 /var/www/vue-hello-world/html/assets
             sudo install -Dm0755 ./dist/* /var/www/vue-hello-world/html/
             sudo install -Dm0755 ./dist/assets/* /var/www/vue-hello-world/html/assets
+            sudo rm -f /etc/nginx/sites-available/vue-hello-world.conf
             sudo install -Dm0755 ./vue-hello-world.conf /etc/nginx/sites-available/
             sudo ufw allow 'Nginx HTTP'
             sudo ufw allow ssh
