@@ -43,4 +43,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            sudo apt install neofetch && neofetch
+            sudo apt install neofetch -y && neofetch
